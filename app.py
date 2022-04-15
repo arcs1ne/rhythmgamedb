@@ -27,7 +27,7 @@ def index():
 
 @app.route("/tournament")
 def tournament():
-    return render_template("tournament.html")   
+    return render_template("index.html")   
 
 @app.route("/song")
 def song():

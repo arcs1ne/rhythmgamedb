@@ -25,17 +25,14 @@
                             <a href="tournament" class="nav-item nav-link">Tournaments</a>
                             <a href="user" class="nav-item nav-link">Users</a>
                             <a href="song" class="nav-item nav-link" tabindex="-1">Songs</a>
-                        {% else %} 
-                            <a href="tournament" class="nav-item nav-link disabled">Tournaments</a>
-                            <a href="user" class="nav-item nav-link disabled">Users</a>
-                            <a href="song" class="nav-item nav-link disabled" tabindex="-1">Songs</a>
                         {% endif %}
                     </div>
                     <div class="navbar-nav ms-auto">
                         {% if session['loggedin'] == True %}
-                            <a href="login" class="nav-item nav-link">Logout</a>
+                            <span class="text-white nav-item nav-link" >Welcome, {{ session['username'] }}</span>
+                            <a href="logout" class="nav-item nav-link">Logout</a>
                         {% else %}
-                            <a href="logout" class="nav-item nav-link">Login</a>
+                            <a href="login" class="nav-item nav-link">Login</a>
                         {% endif %}
                     </div>
                 </div>
