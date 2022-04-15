@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="row pt-3 pb-3">
+        <div class="col-sm">
+            <div class="input-group mx-auto">
+                <input type="search" class="form-control rounded" size="50" placeholder="Type in a username" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Global Rank</th>
+                <th scope="col">User ID</th>
+                </tr>
+                <tr>
+                <td>1</td>
+                <td>arcpotato</td>
+                <td>1470</td>
+                <td>18</td>
+                <td>12842392</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    
+{% endblock %}
