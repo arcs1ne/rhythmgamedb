@@ -1,15 +1,37 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
- .navbar {
-	 padding-top: 80px;
+html, body{
+	margin: 0;
+	height: 100%;
+	background-color: #FFe6EE;
 }
+
+.hero-text {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+  }
+
+  .hero-image {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.discordapp.com/attachments/963062035652939788/964613489995943946/unknown.png");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+  }
+
+.navbar-custom {
+    background-color: #600000;
+}
+
  .nav-link {
-	 font-family: Roboto, Helvetica Neue, sans-serif;
-	 font-size: 14px;
-	 font-weight: 600;
+	 font-size: 20px;
+	 font-weight: 350;
 	 color: #fff;
-	 min-width: 88px;
 	 line-height: 36px;
-	 padding: 0 16px;
 	 border-radius: 2px;
 	 text-align: center;
 }
@@ -25,14 +47,13 @@
 	 border: none;
 }
  .navbar-brand {
-	 font-family: Roboto, Helvetica Neue, sans-serif;
 	 font-size: 24px;
 	 font-weight: 500;
 	 color: #f4f4f4;
-	 padding: 0 16px;
 }
  .hero {
-	 height: 660px;
+	 height: 900px;
+	 width: auto;
 	 background: linear-gradient(to bottom left, #77c4e3, #8176b5);
 	 background-size: cover;
 	 background-position: center;
@@ -58,67 +79,5 @@
 }
  .hero-sub-title > a:hover {
 	 color: #f4f4f4;
-}
-/* ================================= --------- Media Query ----------- ===============================*/
-/*============================== ---------- Mobile View -------- ==============================*/
- @media (min-width: 350px) and (max-width: 1024px) {
-	 .navbar {
-		 padding-top: 20px;
-	}
-	 .social {
-		 text-align: center;
-	}
-	 .social .fa {
-		 color: #807cb9 !important;
-	}
-	 .social .fa-facebook-square {
-		 margin-left: 0 !important;
-	}
-	 .navbar-collapse {
-		 background-color: #fff;
-		 padding: 20px;
-		 z-index: 55;
-	}
-	 nav ul li > a {
-		 color: #807cb9 !important;
-	}
-	 nav ul li > a:hover {
-		 opacity: 0.8;
-	}
-}
-/* Mobile -btn */
- .navbar-dark .navbar-toggler-icon {
-	 background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255, 255, 255)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
- .navbar-dark .navbar-toggler {
-	 border-color: transparent !important;
-}
- .navbar-dark .navbar-toggler:focus {
-	 border-color: transparent !important;
-}
-/* ======================== -------- Desktop ---------- =========================*/
- @media (min-width: 1200px) {
-	 .navbar {
-		 width: 1140px;
-		 padding-left: 120px;
-	}
-	 .text-white {
-		 font-family: "Open Sans", sans-serif;
-	}
-}
- .social .fa {
-	 font-size: 20px;
-	 min-width: 44px;
-	 line-height: 36px;
-	 color: #f4f4f4;
-}
- .social .fa-facebook-square {
-	 margin-left: 50px;
-}
- .social .fa:hover {
-	 cursor: pointer;
-	 color: #f4f4f4;
-	 opacity: 0.7;
-	 text-decoration: none;
 }
  

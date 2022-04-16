@@ -1,27 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="register">
-    <h1>Register</h1>
-    <div class="links">
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('register') }}" class="active">Register</a>
+<body style="padding:70px">
+    <div class="container py-70 my-70">
+        <div class="divider d-flex align-items-center my-4">
+            <h1 class="fs-1 fw-bold">Register for an account here!</h1>
+        </div>
+        <form action="/register" method="post">
+            <div class="form-outline mb-3"><input name = "name" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Username" required/></div>
+            <div class="form-outline mb-3"><input name = "password" type="password" id="form3Example4" class="form-control form-control-lg"placeholder="Password" required/></div>
+            <div class="form-outline mb-3"><input name = "cfmpassword" type="password" id="form3Example5" class="form-control form-control-lg"placeholder="Confirm password" required/></div>
+            <h4 class="mt-2 pt-1">Select your country:</h4></br>
+            <select name="country">
+                {% for key, value in countries.items() %}
+                    <option value = '{{ key }}'>{{ value }}</option>
+                {% endfor %}
+            </select>
+        </br>
+    </br>
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+        </form>
+        <p>{{ msg }}</p>
+        <div class="text-center text-lg-start mt-4 pt-2">
+            <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="login"class="link">Login</a></p>
+        </div>
     </div>
-    <form action="{{ url_for('register') }}" method="post" autocomplete="off">
-        <label for="username">
-            <i class="fas fa-user"></i>
-        </label>
-        <input type="text" name="username" placeholder="Username" id="username" required>
-        <label for="password">
-            <i class="fas fa-lock"></i>
-        </label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <label for="email">
-            <i class="fas fa-envelope"></i>
-        </label>
-        <input type="email" name="email" placeholder="Email" id="email" required>
-        <div class="msg">{{ msg }}</div>
-        <input type="submit" value="Register">
-    </form>
-</div>
-{% endblock %}  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+{% endblock %}
