@@ -279,13 +279,38 @@ def index():
 def tournament():
     return render_template("tournament.html")   
 
-@app.route("/song")
+@app.route("/song", methods = ['GET', 'POST'])
 def song():
-    return render_template("song.html")
+    sortby = "titlesort"
+    searchstr = ""
+    romanized = False
 
-@app.route("/user")
+    if request.method == "POST":
+        print(request.form)
+        searchstr = request.form['search']
+        sortby = request.form['sortby']
+        romanized = 'romanized' in request.form
+    cur = mysql.connection.cursor()
+    cur.execute("call listSongs(%s, %s, %s)", (searchstr, sortby, romanized))
+    songs = cur.fetchall()
+    return render_template('song.html', songs = songs, searchstr = searchstr, sortby = sortby, romanized = romanized)
+
+@app.route("/user", methods = ['GET', 'POST'])
 def user():
-    return render_template("user.html")
+    country = session['country']
+    sortby = "usersort"
+    countryonly = False
+    searchstr = ""
+
+    if request.method == "POST":
+        searchstr = request.form['search']
+        sortby = request.form['sortby']
+        countryonly = 'countryonly' in request.form
+
+    cur = mysql.connection.cursor()
+    cur.execute("call listUsers(%s, %s, %s, %s)", (searchstr, sortby, countryonly, country))
+    records = cur.fetchall()
+    return render_template('user.html', user = records, searchstr = searchstr, sortby = sortby, countryonly = countryonly)
 
 @app.route("/register", methods=['GET','POST'])
 def register():
@@ -293,17 +318,18 @@ def register():
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form:
         username = request.form['name']
         password = request.form['password']
+        cfmpassword = request.form['cfmpassword']
         country = request.form['country']
-        if password != request.form['cfmpassword']:
+        if password != cfmpassword:
             msg = "The passwords do not match!"
-            return render_template('register.html', msg=msg, countries = countrydict)
+            return render_template('register.html', msg=msg, countries = countrydict, username=username, password=password, cfmpassword=cfmpassword)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         temp = 'INSERT INTO user (username, password, country, globalrank, countryrank, ranklastupdated, mainmode) VALUES (%s, %s, %s, %s, %s, %s, %s)'
         val = (username, password, country, None, None, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0)
         cursor.execute(temp, val)
         mysql.connection.commit()
         return redirect(url_for('login'))
-    return render_template("register.html", countries = countrydict)
+    return render_template("register.html", countries = countrydict, username = "", password = "", cfmpassword = "")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -319,12 +345,15 @@ def login():
         cursor.execute('SELECT * FROM user WHERE username = %s AND password = %s', (username, password,))
         # Fetch one record and return result
         account = cursor.fetchone()
+        cursor.close()
         # If account exists in accounts table in out database
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             session['userid'] = account['userid']
             session['username'] = account['username']
+            session['country'] = account['country']
+            print(session)
             # Redirect to home page
             return render_template("basic.html", name=session['username'])
         else:

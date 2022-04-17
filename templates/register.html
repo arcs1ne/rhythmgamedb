@@ -7,9 +7,9 @@
             <h1 class="fs-1 fw-bold">Register for an account here!</h1>
         </div>
         <form action="/register" method="post">
-            <div class="form-outline mb-3"><input name = "name" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Username" required/></div>
-            <div class="form-outline mb-3"><input name = "password" type="password" id="form3Example4" class="form-control form-control-lg"placeholder="Password" required/></div>
-            <div class="form-outline mb-3"><input name = "cfmpassword" type="password" id="form3Example5" class="form-control form-control-lg"placeholder="Confirm password" required/></div>
+            <div class="form-outline mb-3"><input {% if username != "" %} value = {{ username }}{% endif %} name = "name" type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Username" required/></div>
+            <div class="form-outline mb-3"><input {% if password != "" %} value = {{ password }}{% endif %} name = "password" type="password" id="form3Example4" class="form-control form-control-lg"placeholder="Password" required/></div>
+            <div class="form-outline mb-3"><input {% if cfmpassword != "" %} value = {{ cfmpassword }}{% endif %} name = "cfmpassword" type="password" id="form3Example5" class="form-control form-control-lg"placeholder="Confirm password" required/></div>
             <h4 class="mt-2 pt-1">Select your country:</h4></br>
             <select name="country">
                 {% for key, value in countries.items() %}
