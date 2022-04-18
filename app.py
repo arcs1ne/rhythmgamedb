@@ -275,9 +275,20 @@ def index():
         return redirect("/login")
     return render_template("basic.html", name = session['username'])
 
+@app.route("/tournamentpage/<int:i>", methods = ['GET', 'POST'])
+def tournamentpage(i):
+    cur = mysql.connection.cursor()
+    cur.execute("call tourDetailsPage(%s)",(i,))
+    tourdetails = cur.fetchall()
+    return render_template("tournamentpage.html", details = tourdetails)
+
 @app.route("/tournament")
 def tournament():
-    return render_template("tournament.html")   
+    cur = mysql.connection.cursor()
+    cur.execute("call listTournaments()")
+    tour = cur.fetchall()
+    return render_template('tournament.html', tournaments = tour)
+
 
 @app.route("/song", methods = ['GET', 'POST'])
 def song():
