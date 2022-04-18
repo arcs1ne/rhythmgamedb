@@ -289,6 +289,32 @@ def tournament():
     tour = cur.fetchall()
     return render_template('tournament.html', tournaments = tour)
 
+@app.route("/delete/<int:i>", methods = ['POST'])
+def deletesong(i):
+    cur = mysql.connection.cursor()
+    cur.execute("call deleteSong(%s)",(i,))
+    mysql.connection.commit()
+    songs = cur.fetchall()
+    return redirect(url_for('song'))
+
+@app.route("/edit/<int:i>", methods = ['POST'])
+def editsong(i):
+    cur = mysql.connection.cursor()
+    cur.execute("call listSongs(%s, %s, %s)", ("", "titlesort", False))
+    songs = cur.fetchall()
+    return render_template('song.html', songs = songs, searchstr = "", sortby = "titlesort", romanized = False, songtoedit = i, edit = 1)
+    
+@app.route("/submitedit/<int:i>", methods = ['POST'])
+def submitedit(i):  
+    cur = mysql.connection.cursor()
+    artist = request.form['artistedit']
+    title = request.form['titleedit']
+    duration = request.form['durationedit']
+    bpm = request.form['bpmedit']
+    cur.execute("call editSong(%s, %s, %s, %s, %s)", (i,artist,title,duration,bpm))
+    mysql.connection.commit()
+    songs = cur.fetchall()
+    return redirect(url_for('song'))
 
 @app.route("/song", methods = ['GET', 'POST'])
 def song():
@@ -304,7 +330,7 @@ def song():
     cur = mysql.connection.cursor()
     cur.execute("call listSongs(%s, %s, %s)", (searchstr, sortby, romanized))
     songs = cur.fetchall()
-    return render_template('song.html', songs = songs, searchstr = searchstr, sortby = sortby, romanized = romanized)
+    return render_template('song.html', songs = songs, searchstr = searchstr, sortby = sortby, romanized = romanized, songtoedit = -1, edit = 0)
 
 @app.route("/user", methods = ['GET', 'POST'])
 def user():
